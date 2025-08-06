@@ -1,0 +1,23 @@
+name = "emuvgc-wtf"
+compatibility_date = "2024-01-01"
+
+[env.production]
+routes = [
+  { pattern = "emuvgc.wtf", zone_name = "emuvgc.wtf" },
+  { pattern = "www.emuvgc.wtf", zone_name = "emuvgc.wtf" }
+]
+
+[[redirects]]
+from = "https://www.emuvgc.wtf/*"
+to = "https://emuvgc.wtf/:splat"
+status = 301
+
+[build]
+command = ""
+cwd = ""
+watch_dir = ""
+
+[assets]
+directory = "."
+include = ["*.html", "*.css", "*.js", "_headers"]
+exclude = ["README.md", "wrangler.toml", ".git/**/*"]
