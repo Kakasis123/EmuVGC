@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmuVGC.wtf - Competitive Pokemon Emulation</title>
+    <meta name="description" content="Your ultimate destination for competitive Pokemon emulation and VGC battles">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <div class="pokeball-loader">
+                <div class="pokeball">
+                    <div class="pokeball-top"></div>
+                    <div class="pokeball-bottom"></div>
+                    <div class="pokeball-center"></div>
+                </div>
+            </div>
+            <div class="loading-text">EmuVGC</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">EmuVGC</span>
+                <span class="logo-wtf">.wtf</span>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#guides" class="nav-link">Guides</a>
+                <a href="#community" class="nav-link">Community</a>
+                <a href="#download" class="nav-link nav-cta">Download</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg">
+            <div class="grid-pattern"></div>
+            <div class="floating-particles"></div>
+        </div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="title-line">Competitive Pokemon</span>
+                    <span class="title-line highlight">Emulation</span>
+                    <span class="title-line">Perfected</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Experience VGC battles like never before with cutting-edge emulation technology.
+                    Join the competitive scene with zero compromises.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary">
+                        <span>Get Started</span>
+                        <div class="btn-glow"></div>
+                    </button>
+                    <button class="btn btn-secondary">
+                        <span>Watch Demo</span>
+                        <svg class="play-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <polygon points="5,3 19,12 5,21"></polygon>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-card card-1">
+                    <div class="card-content">
+                        <div class="pokemon-sprite"></div>
+                        <div class="card-text">Garchomp</div>
+                    </div>
+                </div>
+                <div class="floating-card card-2">
+                    <div class="card-content">
+                        <div class="pokemon-sprite sprite-2"></div>
+                        <div class="card-text">Charizard</div>
+                    </div>
+                </div>
+                <div class="floating-card card-3">
+                    <div class="card-content">
+                        <div class="pokemon-sprite sprite-3"></div>
+                        <div class="card-text">Metagross</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Choose EmuVGC?</h2>
+                <p class="section-subtitle">Built for competitive players, by competitive players</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M12 6v6l4 2"></path>
+                        </svg>
+                    </div>
+                    <h3>Lightning Fast</h3>
+                    <p>Optimized emulation with 60fps+ performance and zero input lag for competitive play.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <h3>Online Battles</h3>
+                    <p>Seamless online multiplayer with ranked matchmaking and tournament support.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                        </svg>
+                    </div>
+                    <h3>Tournament Ready</h3>
+                    <p>Official format support with automatic rule enforcement and replay systems.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <polyline points="3.27,6.96 12,12.01 20.73,6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
+                    <h3>Advanced Tools</h3>
+                    <p>Team builder, damage calculator, and meta analysis tools built right in.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="50000">0</div>
+                    <div class="stat-label">Active Players</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="1500">0</div>
+                    <div class="stat-label">Daily Battles</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="99">0</div>
+                    <div class="stat-label">% Uptime</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="24">0</div>
+                    <div class="stat-label">Countries</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="download" class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Dominate?</h2>
+                <p>Join thousands of trainers already competing at the highest level.</p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary btn-large">
+                        <span>Download Now</span>
+                        <div class="btn-glow"></div>
+                    </button>
+                    <button class="btn btn-outline">Join Discord</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-text">EmuVGC</span>
+                    <span class="logo-wtf">.wtf</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#privacy">Privacy</a>
+                    <a href="#terms">Terms</a>
+                    <a href="#support">Support</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 EmuVGC.wtf - Built for the competitive community</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
