@@ -4,10 +4,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const mainContent = document.getElementById('main-content');
     const backgroundMusic = document.getElementById('background-music');
     
-    // Auto-continue immediately (bypass loading screen)
+    // Show loading screen for 3 seconds, then show "Loaded. click to continue"
     setTimeout(() => {
-        continueToSite();
-    }, 1000);
+        const loadingContinue = document.getElementById('loading-continue');
+        if (loadingContinue) {
+            loadingContinue.style.display = 'block';
+        }
+    }, 3000);
+    
+    // Auto-continue after 8 seconds if user hasn't clicked
+    setTimeout(() => {
+        if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
+            continueToSite();
+        }
+    }, 8000);
     
     // Initialize PayPal buttons after loading
     setTimeout(() => {
@@ -22,13 +32,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const mainContent = document.getElementById('main-content');
         const backgroundMusic = document.getElementById('background-music');
         
+        console.log('continueToSite called');
+        
         if (loadingScreen) {
             loadingScreen.classList.add('hidden');
+            console.log('Loading screen hidden');
         }
         
         setTimeout(() => {
             if (mainContent) {
                 mainContent.classList.add('visible');
+                console.log('Main content made visible');
             }
             initializeAnimations();
             
@@ -58,6 +72,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const loadingScreen = document.getElementById('loading-screen');
         if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
             console.log('Keyboard bypass: Continuing to site');
+            continueToSite();
+        }
+    });
+    
+    // Ensure the continue button is properly accessible
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('continue-button')) {
+            console.log('Continue button clicked');
             continueToSite();
         }
     });
