@@ -1,0 +1,19 @@
+name = "emuvgc-wtf"
+main = "index.html"
+compatibility_date = "2024-01-01"
+
+[env.production]
+account_id = "your-cloudflare-account-id"
+zone_id = "your-cloudflare-zone-id"
+
+[[env.production.routes]]
+pattern = "emuvgc.wtf/*"
+zone_id = "your-cloudflare-zone-id"
+
+[build]
+command = ""
+cwd = ""
+watch_dir = ""
+
+[site]
+bucket = "./"
