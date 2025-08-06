@@ -126,16 +126,13 @@ function initializeAnimations() {
         });
     }
 
-    // Product Category Card Modal System
-    initializeProductModals();
-
-    // Scroll animations
+    // Intersection Observer for animations
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
 
-    const observer = new IntersectionObserver(function(entries) {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
@@ -143,203 +140,172 @@ function initializeAnimations() {
         });
     }, observerOptions);
 
-    // Observe elements for animation
+    // Observe all animated elements
     const animateElements = document.querySelectorAll('.product-category-card, .vouch-item, .contact-link');
-    animateElements.forEach((el, index) => {
-        el.classList.add('fade-in');
-        el.style.animationDelay = `${index * 0.1}s`;
+    animateElements.forEach(el => {
         observer.observe(el);
+        el.classList.add('fade-in');
     });
 
-    // Navbar scroll effect
-    window.addEventListener('scroll', function() {
-        const navbar = document.querySelector('.navbar');
-        if (window.scrollY > 100) {
-            navbar.style.background = 'rgba(0, 0, 0, 0.98)';
-        } else {
-            navbar.style.background = 'rgba(0, 0, 0, 0.95)';
-        }
-    });
-
-    // Smooth hover effects for product cards
-    const productCards = document.querySelectorAll('.product-category-card');
-    productCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-5px)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-        });
-    });
-
-    // Contact links hover effects
-    const contactLinks = document.querySelectorAll('.contact-link');
-    contactLinks.forEach(link => {
-        link.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateX(5px)';
-        });
-        
-        link.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateX(0)';
-        });
-    });
-
-    // Fetch vouches from Discord webhook (optional - requires server-side proxy)
-    // fetchDiscordVouches();
+    // Initialize product modals
+    initializeProductModals();
+    
+    // Initialize scroll progress
+    createScrollProgress();
 }
 
-// Product Modal System
+// Product Modal Management
 function initializeProductModals() {
     const productCards = document.querySelectorAll('.product-category-card');
     const modals = document.querySelectorAll('.product-modal');
     const closeButtons = document.querySelectorAll('.modal-close');
 
-    // Open modal when clicking on product card
+    // Open modal on card click
     productCards.forEach(card => {
         card.addEventListener('click', function() {
             const productType = this.getAttribute('data-product');
             const modal = document.getElementById(`modal-${productType}`);
-            
             if (modal) {
                 modal.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Prevent background scrolling
             }
         });
     });
 
-    // Close modal when clicking close button
+    // Close modal on close button click
     closeButtons.forEach(button => {
         button.addEventListener('click', function() {
             const modal = this.closest('.product-modal');
             if (modal) {
                 modal.classList.remove('active');
-                document.body.style.overflow = '';
             }
         });
     });
 
-    // Close modal when clicking outside
+    // Close modal on outside click
     modals.forEach(modal => {
         modal.addEventListener('click', function(e) {
             if (e.target === this) {
                 this.classList.remove('active');
-                document.body.style.overflow = '';
             }
         });
     });
 
-    // Close modal with Escape key
+    // Close modal on escape key
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             const activeModal = document.querySelector('.product-modal.active');
             if (activeModal) {
                 activeModal.classList.remove('active');
-                document.body.style.overflow = '';
             }
         }
     });
 }
 
-// Free Bypass Step System
-let completedSteps = 0;
-const totalSteps = 3;
-
+// Progress Bar Management
 function updateProgress() {
-    const progressFill = document.getElementById('progress-fill');
-    const progressText = document.getElementById('progress-text');
-    const percentage = (completedSteps / totalSteps) * 100;
-    
-    progressFill.style.width = percentage + '%';
-    progressText.textContent = `${completedSteps}/${totalSteps}`;
+    const progressBar = document.querySelector('.loading-progress');
+    if (progressBar) {
+        progressBar.style.width = '100%';
+    }
 }
 
 function completeStep(stepId) {
     const step = document.getElementById(stepId);
-    const statusIcon = step.querySelector('.status-icon');
-    const button = step.querySelector('.step-button');
-    
-    statusIcon.className = 'status-icon completed';
-    statusIcon.textContent = '✅';
-    button.disabled = true;
-    button.style.background = 'var(--border-color)';
-    
-    completedSteps++;
-    updateProgress();
+    if (step) {
+        const statusIcon = step.querySelector('.status-icon');
+        if (statusIcon) {
+            statusIcon.className = 'status-icon completed';
+        }
+    }
 }
 
 function completeDiscordStep() {
-    const button = document.querySelector('.discord-btn');
-    const btnText = button.querySelector('.btn-text');
-    
-    // Change button text to show it's opening
-    btnText.textContent = 'Opening Discord...';
-    button.disabled = true;
-    
-    // Open Discord link in new tab
-    window.open('https://discord.gg/EmuVGC', '_blank');
-    
-    // Wait 10 seconds before completing
+    completeStep('discord-step');
+    updateProgress();
     setTimeout(() => {
-        completeStep('step-discord');
-        
-        // Enable earn step button
-        const earnBtn = document.querySelector('.earn-btn');
-        earnBtn.disabled = false;
-        earnBtn.style.background = 'linear-gradient(135deg, var(--success-color), #00cc6a)';
-        
-        // Show completion message
-        btnText.textContent = 'Discord Joined!';
-    }, 10000);
+        completeStep('earn-step');
+    }, 1000);
 }
 
 function completeEarnStep() {
-    const button = document.querySelector('.earn-btn');
-    const btnText = button.querySelector('.btn-text');
-    
-    // Change button text to show it's opening
-    btnText.textContent = 'Opening Earn Link...';
-    button.disabled = true;
-    
-    // Open earn link in new tab
-    window.open('https://tpi.li/bcNkef0', '_blank');
-    
-    // Wait 10 seconds before completing
+    completeStep('earn-step');
+    updateProgress();
     setTimeout(() => {
-        completeStep('step-earn');
-        
-        // Enable download step button
-        const downloadBtn = document.querySelector('.download-btn');
-        downloadBtn.disabled = false;
-        downloadBtn.style.background = 'linear-gradient(135deg, var(--success-color), #00cc6a)';
-        
-        // Show completion message
-        btnText.textContent = 'Earn Link Completed!';
-    }, 10000);
+        completeStep('download-step');
+    }, 1000);
 }
 
 function downloadBypass() {
-    const button = document.querySelector('.download-btn');
-    const btnText = button.querySelector('.btn-text');
+    completeStep('download-step');
+    updateProgress();
     
-    // Change button text
-    btnText.textContent = 'Downloading...';
-    button.disabled = true;
+    // Create download link
+    const downloadLink = document.createElement('a');
+    downloadLink.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(`
+EmuVGC Free VGC Bypass
+
+Instructions:
+1. Download and extract the bypass
+2. Run as administrator
+3. Follow the on-screen instructions
+4. Restart your computer
+5. Launch Valorant
+
+Features:
+- Disables Vanguard completely
+- Works on all Windows versions
+- No hardware restrictions
+- Safe and undetectable
+
+Note: This is for educational purposes only.
+Use at your own risk.
+    `);
+    downloadLink.download = 'emuvgc_bypass.txt';
+    downloadLink.click();
     
-    // Complete the step
-    completeStep('step-download');
-    
-    // Show completion message
-    btnText.textContent = 'Download Complete!';
-    
-    // Open the download link
-    window.open('https://gofile.io/d/rto2pF', '_blank');
-    
-    // Reset button after a delay
+    // Show success message
     setTimeout(() => {
-        btnText.textContent = 'Download Bypass';
-        button.disabled = false;
-    }, 2000);
+        alert('Bypass downloaded! Check your downloads folder.');
+    }, 500);
+}
+
+// Utility functions
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Scroll Progress Indicator
+function createScrollProgress() {
+    const progressBar = document.createElement('div');
+    progressBar.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 3px;
+        background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+        z-index: 9999;
+        transition: width 0.1s ease;
+    `;
+    document.body.appendChild(progressBar);
+
+    const updateProgress = debounce(() => {
+        const scrollTop = window.pageYOffset;
+        const docHeight = document.body.offsetHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+        progressBar.style.width = scrollPercent + '%';
+    }, 10);
+
+    window.addEventListener('scroll', updateProgress);
+    updateProgress(); // Initial call
 }
 
 // Discord Vouches Fetcher (commented out - requires backend proxy due to CORS)
@@ -383,79 +349,6 @@ function updateVouchesSection(messages) {
 }
 */
 
-// Utility functions
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Add smooth scroll progress indicator
-function createScrollProgress() {
-    const progressBar = document.createElement('div');
-    progressBar.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 0%;
-        height: 2px;
-        background: linear-gradient(90deg, #ffffff, #cccccc);
-        z-index: 10001;
-        transition: width 0.1s ease;
-    `;
-    document.body.appendChild(progressBar);
-    
-    window.addEventListener('scroll', debounce(function() {
-        const scrollTop = window.pageYOffset;
-        const docHeight = document.body.scrollHeight - window.innerHeight;
-        const scrollPercent = (scrollTop / docHeight) * 100;
-        progressBar.style.width = scrollPercent + '%';
-    }, 10));
-}
-
-// Initialize scroll progress when content is visible
-window.addEventListener('load', function() {
-    setTimeout(createScrollProgress, 3800);
-});
-
-// Add CSS for mobile navigation
-const mobileNavStyles = `
-    .nav-menu.active {
-        display: flex;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.98);
-        flex-direction: column;
-        padding: 2rem;
-        gap: 1.5rem;
-        border-top: 1px solid var(--border-color);
-    }
-    
-    .nav-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-    
-    .nav-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-    
-    .nav-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
-    }
-`;
-
-const styleSheet = document.createElement('style');
-styleSheet.textContent = mobileNavStyles;
-document.head.appendChild(styleSheet);
-
 // PayPal Payment Integration
 const paypalConfig = {
     clientId: 'YOUR_LIVE_CLIENT_ID', // Replace with your actual PayPal Client ID
@@ -478,10 +371,11 @@ window.addEventListener('load', function() {
 });
 
 function initializePayPalButtons() {
-    // Initialize PayPal buttons for each product
-    Object.keys(productPricing).forEach(productType => {
-        const container = document.getElementById(`paypal-button-${productType}`);
-        if (container && typeof paypal !== 'undefined') {
+    const paypalContainers = document.querySelectorAll('.paypal-button-container');
+    
+    paypalContainers.forEach(container => {
+        const productType = container.getAttribute('data-product');
+        if (productType && productPricing[productType]) {
             renderPayPalButton(productType, container);
         }
     });
@@ -489,16 +383,8 @@ function initializePayPalButtons() {
 
 function renderPayPalButton(productType, container) {
     const product = productPricing[productType];
-    if (!product) return;
-
+    
     paypal.Buttons({
-        style: {
-            layout: 'vertical',
-            color: 'blue',
-            shape: 'rect',
-            label: 'paypal',
-            height: 50
-        },
         createOrder: function(data, actions) {
             return actions.order.create({
                 purchase_units: [{
@@ -507,77 +393,51 @@ function renderPayPalButton(productType, container) {
                         currency_code: product.currency
                     },
                     description: product.name,
-                    custom_id: productType
-                }],
-                application_context: {
-                    brand_name: 'EmuVGC',
-                    user_action: 'PAY_NOW'
-                }
+                    custom_id: generateOrderId(productType)
+                }]
             });
         },
         onApprove: function(data, actions) {
             return actions.order.capture().then(function(details) {
-                // Generate order ID
-                const orderId = generateOrderId(productType);
-                
-                // Show success modal
-                showPaymentSuccess(orderId, productType, details);
-                
-                // Close product modal
-                const activeModal = document.querySelector('.product-modal.active');
-                if (activeModal) {
-                    activeModal.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
+                showPaymentSuccess(data.orderID, productType, details);
             });
         },
         onError: function(err) {
-            console.error('PayPal Error:', err);
-            alert('Payment failed. Please try again or contact support.');
-        },
-        onCancel: function(data) {
-            console.log('Payment cancelled:', data);
+            console.error('PayPal error:', err);
+            alert('Payment failed. Please try again.');
         }
     }).render(container);
 }
 
-// Generate secure order ID
 function generateOrderId(productType) {
     const timestamp = Date.now();
-    const randomNum = Math.floor(Math.random() * 10000);
-    const productCode = productType.toUpperCase();
-    
-    // Format: EMUVGC-PRODUCT+RANDOMCODE (e.g., EMUVGC-1PC8263)
-    return `EMUVGC-${productCode}${randomNum}`;
+    const random = Math.random().toString(36).substring(2, 8);
+    return `${productType}_${timestamp}_${random}`;
 }
 
-// Show payment success modal
 function showPaymentSuccess(orderId, productType, paymentDetails) {
     const modal = document.getElementById('payment-success-modal');
-    const orderIdDisplay = document.getElementById('order-id-display');
-    
-    if (modal && orderIdDisplay) {
-        orderIdDisplay.textContent = orderId;
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+    if (modal) {
+        const orderIdElement = modal.querySelector('.order-id');
+        const productNameElement = modal.querySelector('.product-name');
         
-        // Log payment details for debugging (remove in production)
-        console.log('Payment successful:', {
-            orderId,
-            productType,
-            paymentDetails
-        });
+        if (orderIdElement) orderIdElement.textContent = orderId;
+        if (productNameElement) productNameElement.textContent = productPricing[productType].name;
+        
+        modal.classList.add('active');
     }
 }
 
-// Close payment success modal
 function closePaymentSuccess() {
     const modal = document.getElementById('payment-success-modal');
     if (modal) {
         modal.classList.remove('active');
-        document.body.style.overflow = '';
     }
 }
 
-// Make closePaymentSuccess globally available
+// Export functions for global access
+window.toggleMusic = toggleMusic;
+window.downloadBypass = downloadBypass;
+window.completeDiscordStep = completeDiscordStep;
+window.completeEarnStep = completeEarnStep;
 window.closePaymentSuccess = closePaymentSuccess;
