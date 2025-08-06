@@ -287,7 +287,7 @@ function completeEarnStep() {
     button.disabled = true;
     
     // Open earn link in new tab
-    window.open('https://tpi.li/eDNYMxfNexn', '_blank');
+    window.open('https://tpi.li/bcNkef0', '_blank');
     
     // Wait 10 seconds before completing
     setTimeout(() => {
@@ -318,7 +318,7 @@ function downloadBypass() {
     btnText.textContent = 'Download Complete!';
     
     // Open the download link
-    window.open('https://gofile.io/d/nrvyWi', '_blank');
+    window.open('https://gofile.io/d/rto2pF', '_blank');
     
     // Reset button after a delay
     setTimeout(() => {
