@@ -414,18 +414,87 @@ body {
 
 /* Free VGC Bypass Section */
 .free-bypass {
-    padding: 6rem 0;
+    padding: 4rem 0;
     background: linear-gradient(135deg, #111111 0%, #222222 50%, #333333 100%);
 }
 
 .bypass-content {
-    max-width: 800px;
+    max-width: 700px;
     margin: 0 auto;
 }
 
 .bypass-info {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
+}
+
+/* Free Product Selection */
+.free-product-selection {
+    margin-bottom: 2rem;
+}
+
+.free-product-selection h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+.free-products {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.free-product-option {
+    position: relative;
+}
+
+.free-product-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.free-product-option label {
+    display: block;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.free-product-option input[type="radio"]:checked + label {
+    background: rgba(0, 255, 136, 0.1);
+    border-color: var(--success-color);
+}
+
+.free-product-option label:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--text-primary);
+}
+
+.product-title {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.5px;
+}
+
+.product-desc {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 300;
 }
 
 .bypass-subtitle {
@@ -444,14 +513,14 @@ body {
 }
 
 .bypass-steps {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 .bypass-steps h4 {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     color: var(--text-primary);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     text-align: center;
 }
 
@@ -1436,6 +1505,23 @@ body {
     .product-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
+    }
+    
+    .free-products {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+    
+    .free-product-option label {
+        padding: 0.8rem;
+    }
+    
+    .product-title {
+        font-size: 0.85rem;
+    }
+    
+    .product-desc {
+        font-size: 0.75rem;
     }
     
     .product-category-card {
