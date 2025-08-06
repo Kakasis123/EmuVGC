@@ -4,13 +4,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const mainContent = document.getElementById('main-content');
     const backgroundMusic = document.getElementById('background-music');
     
-    // Show loading screen for 3 seconds, then show "Loaded. click to continue"
+    // Auto-continue immediately (bypass loading screen)
     setTimeout(() => {
-        const loadingContinue = document.getElementById('loading-continue');
-        if (loadingContinue) {
-            loadingContinue.style.display = 'block';
-        }
-    }, 3000);
+        continueToSite();
+    }, 1000);
     
     // Initialize PayPal buttons after loading
     setTimeout(() => {
@@ -46,6 +43,24 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 800);
     };
+    
+    // Emergency fallback - if loading screen is still visible after 10 seconds, force continue
+    setTimeout(() => {
+        const loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
+            console.log('Emergency: Forcing site to continue');
+            continueToSite();
+        }
+    }, 10000);
+    
+    // Keyboard shortcut to bypass loading screen (press any key)
+    document.addEventListener('keydown', function() {
+        const loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
+            console.log('Keyboard bypass: Continuing to site');
+            continueToSite();
+        }
+    });
 });
 
 // Music Control
